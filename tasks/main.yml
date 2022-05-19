@@ -1,0 +1,17 @@
+---
+- name: Generate Debug
+  template:
+    src: "rsvp_config.j2"
+    dest: "debug_configs/{{ inventory_hostname}}_rsvp_config.txt"
+
+- name: Generate RSVP Configuration
+  junos_config:
+    lines: "{{ lookup('template', 'rsvp_config.j2').split('\n') }}"
+    comment: "Configured RSVP"
+  when: rsvp_remove == False
+
+- name: Remove RSVP Configuration
+  junos_config:
+    lines: "{{ lookup('template', 'rsvp_remove.j2').split('\n') }}"
+    comment: "Removed RSVP"
+  when: rsvp_remove == True

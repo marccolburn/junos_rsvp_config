@@ -1,0 +1,10 @@
+{% for interface in rsvp_interfaces %}
+delete interfaces {{ interface.name }} unit {{ interface.unit }} family mpls
+delete protocols rsvp interface {{ interface.name }}.{{ interface.unit }}
+delete protocols mpls interface {{ interface.name }}.{{ interface.unit }}
+{% endfor %}
+{% if rsvp_static_paths is defined %}
+{% for path in rsvp_static_paths %}
+delete protocols mpls label-switched-path {{ path.name }}
+{% endfor %}
+{% endif %}
