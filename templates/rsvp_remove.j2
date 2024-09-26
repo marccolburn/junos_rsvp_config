@@ -8,3 +8,8 @@ delete protocols mpls interface {{ interface.name }}.{{ interface.unit }}
 delete protocols mpls label-switched-path {{ path.name }}
 {% endfor %}
 {% endif %}
+{% if rsvp_paths is defined %}
+{% for path in rsvp_paths %}
+delete protocols mpls path {{ path.name }} 
+{% endfor %}
+{% endif %}
