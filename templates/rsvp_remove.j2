@@ -3,8 +3,8 @@ delete interfaces {{ interface.name }} unit {{ interface.unit }} family mpls
 delete protocols rsvp interface {{ interface.name }}.{{ interface.unit }}
 delete protocols mpls interface {{ interface.name }}.{{ interface.unit }}
 {% endfor %}
-{% if rsvp_static_paths is defined %}
-{% for path in rsvp_static_paths %}
+{% if rsvp_ingress_lsps is defined %}
+{% for path in rsvp_ingress_lsps %}
 delete protocols mpls label-switched-path {{ path.name }}
 {% endfor %}
 {% endif %}

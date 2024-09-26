@@ -3,8 +3,11 @@ set interfaces {{ interface.name }} unit {{ interface.unit }} family mpls
 set protocols rsvp interface {{ interface.name }}.{{ interface.unit }}
 set protocols mpls interface {{ interface.name }}.{{ interface.unit }}
 {% endfor %}
-{% if rsvp_static_paths is defined %}
-{% for path in rsvp_static_paths %}
+{% if rsvp_ingress_lsps is defined %}
+{% for path in rsvp_ingress_lsps %}
 set protocols mpls label-switched-path {{ path.name }} to {{ path.dest }}
+{% if path.cspf == False %}
+set protocols mpls label-switched-path {{ path.name }} no-cspf
+{% endif %}
 {% endfor %}
 {% endif %}
