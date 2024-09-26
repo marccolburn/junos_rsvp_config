@@ -27,7 +27,7 @@ Example Playbook
 
     - hosts: all
       roles:
-         - { role: junos_ldp_config }
+         - { role: junos_rsvp_config }
 
 License
 -------
