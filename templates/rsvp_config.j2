@@ -25,5 +25,8 @@ set protocols mpls label-switched-path {{ path.name }} primary {{ path.primary_p
 {% if path.priority is defined %}
 set protocols mpls label-switched-path {{ path.name }} priority {{ path.priority }}
 {% endif %}
+{% if path.soft_preemption is defined and path.soft_preemption == True %}
+set protocols mpls label-switched-path {{ path.name }} soft-preemption
+{% endif %}
 {% endfor %}
 {% endif %}
