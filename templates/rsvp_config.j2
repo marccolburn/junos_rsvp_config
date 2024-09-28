@@ -22,6 +22,15 @@ set protocols mpls label-switched-path {{ path.name }} bandwidth {{ path.bandwid
 {% if path.primary_path is defined %}
 set protocols mpls label-switched-path {{ path.name }} primary {{ path.primary_path }}
 {% endif %} 
+{% if path.secondary_paths is defined %}
+{% for secondary_path in path.secondary_paths %}
+{% if secondary_path.standby is defined %}
+set protocols mpls label-switched-path {{ path.name }} secondary {{ secondary_path.name }} standby
+{% else %}
+set protocols mpls label-switched-path {{ path.name }} secondary {{ secondary_path.name }}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% if path.priority is defined %}
 set protocols mpls label-switched-path {{ path.name }} priority {{ path.priority }}
 {% endif %}
