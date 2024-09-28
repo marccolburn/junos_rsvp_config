@@ -47,5 +47,8 @@ set protocols mpls label-switched-path {{ path.name }} fast-reroute
 {% if path.node_link_protection is defined %}
 set protocols mpls label-switched-path {{ path.name }} node-link-protection
 {% endif %}
+{% if path.adaptive is defined %}
+set protocols mpls label-switched-path {{ path.name }} adaptive
+{% endif %}
 {% endfor %}
 {% endif %}
