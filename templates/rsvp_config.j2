@@ -1,6 +1,10 @@
 {% for interface in rsvp_interfaces %}
 set interfaces {{ interface.name }} unit {{ interface.unit }} family mpls
+{% if interface.link_protection is defined %}
+set protocols rsvp interface {{ interface.name }}.{{ interface.unit }} link-protection
+{% else %}
 set protocols rsvp interface {{ interface.name }}.{{ interface.unit }}
+{% endif %}
 set protocols mpls interface {{ interface.name }}.{{ interface.unit }}
 {% endfor %}
 {% if rsvp_paths is defined %}
@@ -36,6 +40,12 @@ set protocols mpls label-switched-path {{ path.name }} priority {{ path.priority
 {% endif %}
 {% if path.soft_preemption is defined and path.soft_preemption == True %}
 set protocols mpls label-switched-path {{ path.name }} soft-preemption
+{% endif %}
+{% if path.fast_reroute is defined %}
+set protocols mpls label-switched-path {{ path.name }} fast-reroute
+{% endif %}
+{% if path.node_link_protection is defined %}
+set protocols mpls label-switched-path {{ path.name }} node-link-protection
 {% endif %}
 {% endfor %}
 {% endif %}
